@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "LJqxQkm0UaM=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\oggy2\\OneDrive\\Máy tính\\LAB_AT_OOSD\\LAB4\\eSHOPPING\\eSHOPPING.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\oggy2\\.nuget\\packages\\system.configuration.configurationmanager\\10.0.12\\system.configuration.configurationmanager.10.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}

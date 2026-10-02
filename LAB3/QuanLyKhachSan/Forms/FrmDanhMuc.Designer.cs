@@ -130,7 +130,7 @@ namespace QuanLyKhachSan.Forms
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(784, 441);
+            this.tabControl.Size = new System.Drawing.Size(1000, 620);
             this.tabControl.TabIndex = 0;
             // 
             // tabKhuVuc
@@ -596,7 +596,7 @@ namespace QuanLyKhachSan.Forms
             // 
             // FrmDanhMuc
             // 
-            this.ClientSize = new System.Drawing.Size(784, 441);
+            this.ClientSize = new System.Drawing.Size(1000, 620);
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -657,7 +657,6 @@ namespace QuanLyKhachSan.Forms
                 control.Font = new Font("Segoe UI", 10F);
                 control.BackColor = Color.White;
                 control.ForeColor = Color.FromArgb(35, 45, 55);
-                control.BorderStyle = BorderStyle.FixedSingle;
             }
 
             foreach (ComboBox control in new ComboBox[]
@@ -726,6 +725,105 @@ namespace QuanLyKhachSan.Forms
 
             this.Text = "QUẢN LÝ DANH MỤC KHÁCH SẠN";
             this.ClientSize = new Size(1000, 620);
+
+            this.BackColor = Color.FromArgb(245, 247, 250);
+            this.Font = new Font("Segoe UI", 10F);
+
+            this.tabControl.Font = new Font("Segoe UI Semibold", 10F);
+            this.tabControl.Padding = new Point(16, 7);
+
+            foreach (TabPage tab in this.tabControl.TabPages)
+            {
+                tab.BackColor = Color.FromArgb(248, 250, 252);
+                tab.Padding = new Padding(16);
+            }
+
+            foreach (Label control in new Label[]
+            {
+                this.lblKhuMa, this.lblKhuTen,
+                this.lblNVMa, this.lblNVTen, this.lblNVVaiTro, this.lblNVSDT,
+                this.lblLoaiMa, this.lblLoaiTen,
+                this.lblDVMa, this.lblDVTen, this.lblDVDVT, this.lblDVGia,
+                this.lblQDMa, this.lblQDLoai, this.lblQDMucDo, this.lblQDTien
+            })
+            {
+                control.Font = new Font("Segoe UI Semibold", 10F);
+                control.ForeColor = Color.FromArgb(45, 55, 72);
+            }
+
+            foreach (TextBox control in new TextBox[]
+            {
+                this.txtKhuMa, this.txtKhuTen,
+                this.txtNVMa, this.txtNVTen, this.txtNVVaiTro, this.txtNVSDT,
+                this.txtLoaiMa, this.txtLoaiTen,
+                this.txtDVMa, this.txtDVTen, this.txtDVDVT,
+                this.txtQDMa, this.txtQDMucDo
+            })
+            {
+                control.Font = new Font("Segoe UI", 10F);
+                control.BackColor = Color.White;
+                control.ForeColor = Color.FromArgb(35, 45, 55);
+            }
+
+            this.cboQDLoai.Font = new Font("Segoe UI", 10F);
+            this.cboQDLoai.BackColor = Color.White;
+            this.cboQDLoai.ForeColor = Color.FromArgb(35, 45, 55);
+            this.cboQDLoai.FlatStyle = FlatStyle.Flat;
+
+            foreach (NumericUpDown control in new NumericUpDown[]
+            {
+                this.numDVGia, this.numQDTien
+            })
+            {
+                control.Font = new Font("Segoe UI", 10F);
+                control.BackColor = Color.White;
+                control.ForeColor = Color.FromArgb(35, 45, 55);
+            }
+
+            foreach (Button control in new Button[]
+            {
+                this.btnThemKhu, this.btnThemNV, this.btnThemLoaiTN,
+                this.btnThemDV, this.btnThemQD
+            })
+            {
+                control.Font = new Font("Segoe UI Semibold", 10F);
+                control.BackColor = Color.FromArgb(37, 99, 235);
+                control.ForeColor = Color.White;
+                control.FlatStyle = FlatStyle.Flat;
+                control.FlatAppearance.BorderSize = 0;
+                control.Cursor = Cursors.Hand;
+                control.Height = 36;
+            }
+
+            foreach (DataGridView grid in new DataGridView[]
+            {
+                this.dgvKhu, this.dgvNV, this.dgvLoaiTN, this.dgvDV, this.dgvQD
+            })
+            {
+                grid.BackgroundColor = Color.White;
+                grid.BorderStyle = BorderStyle.FixedSingle;
+                grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+                grid.GridColor = Color.FromArgb(226, 232, 240);
+                grid.EnableHeadersVisualStyles = false;
+                grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(25, 55, 90);
+                grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10F);
+                grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                grid.ColumnHeadersHeight = 38;
+                grid.DefaultCellStyle.Font = new Font("Segoe UI", 9.5F);
+                grid.DefaultCellStyle.ForeColor = Color.FromArgb(35, 45, 55);
+                grid.DefaultCellStyle.BackColor = Color.White;
+                grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(219, 234, 254);
+                grid.DefaultCellStyle.SelectionForeColor = Color.FromArgb(30, 64, 175);
+                grid.RowTemplate.Height = 32;
+                grid.RowHeadersVisible = false;
+                grid.AllowUserToAddRows = false;
+                grid.AllowUserToResizeRows = false;
+                grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                grid.MultiSelect = false;
+            }
+
+            this.Text = "QUẢN LÝ DANH MỤC KHÁCH SẠN";
 
             this.ResumeLayout(false);
 

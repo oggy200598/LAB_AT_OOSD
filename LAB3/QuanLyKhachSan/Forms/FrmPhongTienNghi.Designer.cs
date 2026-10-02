@@ -102,11 +102,11 @@ namespace QuanLyKhachSan.Forms
             this.tabControl.Controls.Add(this.tabTienNghi);
             this.tabControl.Controls.Add(this.tabLapDat);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tabControl.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(800, 480);
+            this.tabControl.Size = new System.Drawing.Size(1000, 620);
             this.tabControl.TabIndex = 0;
             // 
             // tabPhong
@@ -123,7 +123,7 @@ namespace QuanLyKhachSan.Forms
             this.tabPhong.Controls.Add(this.dgvPhong);
             this.tabPhong.Location = new System.Drawing.Point(4, 29);
             this.tabPhong.Name = "tabPhong";
-            this.tabPhong.Size = new System.Drawing.Size(792, 447);
+            this.tabPhong.Size = new System.Drawing.Size(992, 587);
             this.tabPhong.TabIndex = 0;
             this.tabPhong.Text = "Phòng";
             // 
@@ -225,7 +225,7 @@ namespace QuanLyKhachSan.Forms
             this.dgvPhong.Location = new System.Drawing.Point(10, 45);
             this.dgvPhong.Name = "dgvPhong";
             this.dgvPhong.RowHeadersWidth = 51;
-            this.dgvPhong.Size = new System.Drawing.Size(765, 390);
+            this.dgvPhong.Size = new System.Drawing.Size(960, 500);
             this.dgvPhong.TabIndex = 9;
             // 
             // tabTienNghi
@@ -242,7 +242,7 @@ namespace QuanLyKhachSan.Forms
             this.tabTienNghi.Controls.Add(this.dgvTN);
             this.tabTienNghi.Location = new System.Drawing.Point(4, 29);
             this.tabTienNghi.Name = "tabTienNghi";
-            this.tabTienNghi.Size = new System.Drawing.Size(792, 447);
+            this.tabTienNghi.Size = new System.Drawing.Size(992, 587);
             this.tabTienNghi.TabIndex = 1;
             this.tabTienNghi.Text = "Tiện nghi";
             // 
@@ -332,7 +332,7 @@ namespace QuanLyKhachSan.Forms
             this.dgvTN.Location = new System.Drawing.Point(10, 45);
             this.dgvTN.Name = "dgvTN";
             this.dgvTN.RowHeadersWidth = 51;
-            this.dgvTN.Size = new System.Drawing.Size(765, 390);
+            this.dgvTN.Size = new System.Drawing.Size(960, 500);
             this.dgvTN.TabIndex = 9;
             // 
             // tabLapDat
@@ -355,7 +355,7 @@ namespace QuanLyKhachSan.Forms
             this.tabLapDat.Controls.Add(this.dgvLD);
             this.tabLapDat.Location = new System.Drawing.Point(4, 29);
             this.tabLapDat.Name = "tabLapDat";
-            this.tabLapDat.Size = new System.Drawing.Size(792, 447);
+            this.tabLapDat.Size = new System.Drawing.Size(992, 587);
             this.tabLapDat.TabIndex = 2;
             this.tabLapDat.Text = "Lắp đặt / luân chuyển";
             // 
@@ -491,12 +491,12 @@ namespace QuanLyKhachSan.Forms
             this.dgvLD.Location = new System.Drawing.Point(10, 72);
             this.dgvLD.Name = "dgvLD";
             this.dgvLD.RowHeadersWidth = 51;
-            this.dgvLD.Size = new System.Drawing.Size(765, 360);
+            this.dgvLD.Size = new System.Drawing.Size(960, 430);
             this.dgvLD.TabIndex = 15;
             // 
             // FrmPhongTienNghi
             // 
-            this.ClientSize = new System.Drawing.Size(800, 480);
+            this.ClientSize = new System.Drawing.Size(1000, 620);
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -504,6 +504,112 @@ namespace QuanLyKhachSan.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Phòng - Tiện nghi - Phiếu lắp đặt";
             this.Load += new System.EventHandler(this.Frm_Load);
+            this.BackColor = System.Drawing.Color.FromArgb(245, 247, 250);
+            this.Font = new System.Drawing.Font("Segoe UI", 10F);
+
+            this.tabControl.BackColor = System.Drawing.Color.FromArgb(245, 247, 250);
+            this.tabControl.Padding = new System.Drawing.Point(16, 7);
+
+            foreach (System.Windows.Forms.TabPage tab in new System.Windows.Forms.TabPage[]
+            {
+                this.tabPhong, this.tabTienNghi, this.tabLapDat
+            })
+            {
+                tab.BackColor = System.Drawing.Color.FromArgb(248, 250, 252);
+                tab.Padding = new System.Windows.Forms.Padding(14);
+            }
+
+            foreach (System.Windows.Forms.Label control in new System.Windows.Forms.Label[]
+            {
+                this.lblPhong, this.lblKhu, this.lblMax, this.lblGia,
+                this.lblMaTN, this.lblLoai, this.lblSTT, this.lblTinhTrang,
+                this.lblSoLD, this.lblTN, this.lblPhongLD, this.lblNgay,
+                this.lblTTLD, this.lblNV, this.lblGhiChu
+            })
+            {
+                control.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
+                control.ForeColor = System.Drawing.Color.FromArgb(45, 55, 72);
+            }
+
+            foreach (System.Windows.Forms.TextBox control in new System.Windows.Forms.TextBox[]
+            {
+                this.txtPhong, this.txtMaTN, this.txtTinhTrang,
+                this.txtSoLD, this.txtTTLD, this.txtGhiChu
+            })
+            {
+                control.Font = new System.Drawing.Font("Segoe UI", 10F);
+                control.BackColor = System.Drawing.Color.White;
+                control.ForeColor = System.Drawing.Color.FromArgb(35, 45, 55);
+                control.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            }
+
+            foreach (System.Windows.Forms.ComboBox control in new System.Windows.Forms.ComboBox[]
+            {
+                this.cboKhu, this.cboLoai, this.cboTN, this.cboPhong, this.cboNV
+            })
+            {
+                control.Font = new System.Drawing.Font("Segoe UI", 10F);
+                control.BackColor = System.Drawing.Color.White;
+                control.ForeColor = System.Drawing.Color.FromArgb(35, 45, 55);
+                control.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            }
+
+            foreach (System.Windows.Forms.NumericUpDown control in new System.Windows.Forms.NumericUpDown[]
+            {
+                this.numMax, this.numGia, this.numSTT
+            })
+            {
+                control.Font = new System.Drawing.Font("Segoe UI", 10F);
+                control.BackColor = System.Drawing.Color.White;
+                control.ForeColor = System.Drawing.Color.FromArgb(35, 45, 55);
+            }
+
+            this.dtNgay.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.dtNgay.CalendarForeColor = System.Drawing.Color.FromArgb(35, 45, 55);
+            this.dtNgay.CalendarMonthBackground = System.Drawing.Color.White;
+
+            foreach (System.Windows.Forms.Button control in new System.Windows.Forms.Button[]
+            {
+                this.btnThemPhong, this.btnThemTN, this.btnLapDat
+            })
+            {
+                control.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
+                control.BackColor = System.Drawing.Color.FromArgb(37, 99, 235);
+                control.ForeColor = System.Drawing.Color.White;
+                control.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                control.FlatAppearance.BorderSize = 0;
+                control.Cursor = System.Windows.Forms.Cursors.Hand;
+                control.Height = 38;
+            }
+
+            foreach (System.Windows.Forms.DataGridView grid in new System.Windows.Forms.DataGridView[]
+            {
+                this.dgvPhong, this.dgvTN, this.dgvLD
+            })
+            {
+                grid.BackgroundColor = System.Drawing.Color.White;
+                grid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+                grid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+                grid.GridColor = System.Drawing.Color.FromArgb(226, 232, 240);
+                grid.EnableHeadersVisualStyles = false;
+                grid.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(25, 55, 90);
+                grid.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
+                grid.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
+                grid.ColumnHeadersDefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+                grid.ColumnHeadersHeight = 38;
+                grid.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+                grid.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(35, 45, 55);
+                grid.DefaultCellStyle.BackColor = System.Drawing.Color.White;
+                grid.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(219, 234, 254);
+                grid.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(30, 64, 175);
+                grid.RowTemplate.Height = 32;
+                grid.RowHeadersVisible = false;
+                grid.AllowUserToAddRows = false;
+                grid.AllowUserToResizeRows = false;
+                grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+                grid.MultiSelect = false;
+            }
+
             this.tabControl.ResumeLayout(false);
             this.tabPhong.ResumeLayout(false);
             this.tabPhong.PerformLayout();
