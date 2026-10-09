@@ -1,0 +1,7 @@
+C:\Users\oggy2\OneDrive\Máy tính\QuanLyCongTyDuLich_Full\bin\Debug\QuanLyCongTyDuLich.exe.config
+C:\Users\oggy2\OneDrive\Máy tính\QuanLyCongTyDuLich_Full\bin\Debug\QuanLyCongTyDuLich.exe
+C:\Users\oggy2\OneDrive\Máy tính\QuanLyCongTyDuLich_Full\bin\Debug\QuanLyCongTyDuLich.pdb
+C:\Users\oggy2\OneDrive\Máy tính\QuanLyCongTyDuLich_Full\obj\Debug\QuanLyCongTyDuLich.csproj.AssemblyReference.cache
+C:\Users\oggy2\OneDrive\Máy tính\QuanLyCongTyDuLich_Full\obj\Debug\QuanLyCongTyDuLich.csproj.CoreCompileInputs.cache
+C:\Users\oggy2\OneDrive\Máy tính\QuanLyCongTyDuLich_Full\obj\Debug\QuanLyCongTyDuLich.exe
+C:\Users\oggy2\OneDrive\Máy tính\QuanLyCongTyDuLich_Full\obj\Debug\QuanLyCongTyDuLich.pdb
