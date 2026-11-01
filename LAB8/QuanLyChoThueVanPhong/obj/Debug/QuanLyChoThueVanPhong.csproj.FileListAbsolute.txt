@@ -8,3 +8,13 @@ C:\Users\oggy2\Downloads\QuanLyChoThueVanPhong_WinForms_Bai4\QuanLyChoThueVanPho
 C:\Users\oggy2\Downloads\QuanLyChoThueVanPhong_WinForms_Bai4\QuanLyChoThueVanPhong\obj\Debug\QuanLyChoThueVanPhong.pdb
 C:\Users\oggy2\Downloads\QuanLyChoThueVanPhong_WinForms_Bai4\QuanLyChoThueVanPhong\obj\Debug\QuanLyChoThueVanPhong.Forms.FrmMain.resources
 C:\Users\oggy2\Downloads\QuanLyChoThueVanPhong_WinForms_Bai4\QuanLyChoThueVanPhong\obj\Debug\QuanLyChoThueVanPhong.csproj.GenerateResource.cache
+C:\Users\oggy2\OneDrive\Máy tính\LAB_AT_OOSD\LAB8\QuanLyChoThueVanPhong\bin\Debug\Database\QuanLyChoThueVanPhong.sql
+C:\Users\oggy2\OneDrive\Máy tính\LAB_AT_OOSD\LAB8\QuanLyChoThueVanPhong\bin\Debug\QuanLyChoThueVanPhong.exe.config
+C:\Users\oggy2\OneDrive\Máy tính\LAB_AT_OOSD\LAB8\QuanLyChoThueVanPhong\bin\Debug\QuanLyChoThueVanPhong.exe
+C:\Users\oggy2\OneDrive\Máy tính\LAB_AT_OOSD\LAB8\QuanLyChoThueVanPhong\bin\Debug\QuanLyChoThueVanPhong.pdb
+C:\Users\oggy2\OneDrive\Máy tính\LAB_AT_OOSD\LAB8\QuanLyChoThueVanPhong\obj\Debug\QuanLyChoThueVanPhong.csproj.AssemblyReference.cache
+C:\Users\oggy2\OneDrive\Máy tính\LAB_AT_OOSD\LAB8\QuanLyChoThueVanPhong\obj\Debug\QuanLyChoThueVanPhong.Forms.FrmMain.resources
+C:\Users\oggy2\OneDrive\Máy tính\LAB_AT_OOSD\LAB8\QuanLyChoThueVanPhong\obj\Debug\QuanLyChoThueVanPhong.csproj.GenerateResource.cache
+C:\Users\oggy2\OneDrive\Máy tính\LAB_AT_OOSD\LAB8\QuanLyChoThueVanPhong\obj\Debug\QuanLyChoThueVanPhong.csproj.CoreCompileInputs.cache
+C:\Users\oggy2\OneDrive\Máy tính\LAB_AT_OOSD\LAB8\QuanLyChoThueVanPhong\obj\Debug\QuanLyChoThueVanPhong.exe
+C:\Users\oggy2\OneDrive\Máy tính\LAB_AT_OOSD\LAB8\QuanLyChoThueVanPhong\obj\Debug\QuanLyChoThueVanPhong.pdb

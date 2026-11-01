@@ -1,0 +1,235 @@
+IF DB_ID(N'QuanLyChoThueVanPhong') IS NULL
+    CREATE DATABASE [QuanLyChoThueVanPhong];
+GO
+USE [QuanLyChoThueVanPhong];
+GO
+
+IF OBJECT_ID(N'dbo.Tang', N'U') IS NULL
+CREATE TABLE dbo.Tang (
+    MaTang NVARCHAR(20) NOT NULL PRIMARY KEY,
+    SoTang INT NOT NULL UNIQUE,
+    MoTa NVARCHAR(250) NULL
+);
+GO
+IF OBJECT_ID(N'dbo.Phong', N'U') IS NULL
+CREATE TABLE dbo.Phong (
+    MaPhong NVARCHAR(20) NOT NULL PRIMARY KEY,
+    MaTang NVARCHAR(20) NOT NULL REFERENCES dbo.Tang(MaTang),
+    DienTich DECIMAL(12,2) NOT NULL CHECK (DienTich > 0),
+    HuongPhong NVARCHAR(80) NULL,
+    GiaThue DECIMAL(18,2) NOT NULL CHECK (GiaThue > 0),
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'SanSang' CHECK (TrangThai IN (N'SanSang',N'BaoTri',N'NgungSuDung')),
+    TinhTrang NVARCHAR(300) NULL
+);
+GO
+IF OBJECT_ID(N'dbo.KhachHang', N'U') IS NULL
+CREATE TABLE dbo.KhachHang (
+    MaKH NVARCHAR(20) NOT NULL PRIMARY KEY,
+    TenKH NVARCHAR(180) NOT NULL,
+    DiaChi NVARCHAR(300) NULL,
+    DienThoai NVARCHAR(25) NULL,
+    Email NVARCHAR(180) NULL,
+    MaSoThue NVARCHAR(30) NULL,
+    NguoiDaiDien NVARCHAR(120) NULL
+);
+GO
+IF OBJECT_ID(N'dbo.NhanVienQuanLy', N'U') IS NULL
+CREATE TABLE dbo.NhanVienQuanLy (
+    MaNVQL NVARCHAR(20) NOT NULL PRIMARY KEY,
+    HoTen NVARCHAR(150) NOT NULL,
+    ChucVu NVARCHAR(100) NULL,
+    DienThoai NVARCHAR(25) NULL,
+    Email NVARCHAR(150) NULL
+);
+GO
+IF OBJECT_ID(N'dbo.HopDong', N'U') IS NULL
+CREATE TABLE dbo.HopDong (
+    MaHD NVARCHAR(24) NOT NULL PRIMARY KEY,
+    MaKH NVARCHAR(20) NOT NULL REFERENCES dbo.KhachHang(MaKH),
+    MaNVQL NVARCHAR(20) NOT NULL REFERENCES dbo.NhanVienQuanLy(MaNVQL),
+    NgayKy DATE NOT NULL,
+    NgayBatDau DATE NOT NULL,
+    NgayKetThuc DATE NOT NULL,
+    SoThangBanDau INT NOT NULL CHECK (SoThangBanDau >= 6),
+    TongTienThue DECIMAL(18,2) NOT NULL CHECK (TongTienThue >= 0),
+    TienTraTruoc DECIMAL(18,2) NOT NULL CHECK (TienTraTruoc >= 0),
+    DieuKhoan NVARCHAR(MAX) NULL,
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'HieuLuc' CHECK (TrangThai IN (N'HieuLuc',N'DaThanhLy')),
+    CONSTRAINT CK_HopDong_Ngay CHECK (NgayKetThuc >= NgayBatDau)
+);
+GO
+IF OBJECT_ID(N'dbo.ChiTietHopDong', N'U') IS NULL
+CREATE TABLE dbo.ChiTietHopDong (
+    MaCTHD NVARCHAR(24) NOT NULL PRIMARY KEY,
+    MaHD NVARCHAR(24) NOT NULL REFERENCES dbo.HopDong(MaHD),
+    MaPhong NVARCHAR(20) NOT NULL REFERENCES dbo.Phong(MaPhong),
+    DonGiaThue DECIMAL(18,2) NOT NULL CHECK (DonGiaThue > 0),
+    NgayBatDau DATE NOT NULL,
+    NgayKetThuc DATE NOT NULL,
+    SoThangGoc INT NOT NULL CHECK (SoThangGoc >= 6),
+    CONSTRAINT UQ_ChiTietHopDong_HopDong_Phong UNIQUE (MaHD, MaPhong),
+    CONSTRAINT CK_ChiTietHopDong_Ngay CHECK (NgayKetThuc >= NgayBatDau)
+);
+GO
+IF OBJECT_ID(N'dbo.DichVu', N'U') IS NULL
+CREATE TABLE dbo.DichVu (
+    MaDV NVARCHAR(20) NOT NULL PRIMARY KEY,
+    TenDV NVARCHAR(150) NOT NULL,
+    DonGia DECIMAL(18,2) NOT NULL CHECK (DonGia >= 0),
+    DonViTinh NVARCHAR(50) NULL,
+    MoTa NVARCHAR(250) NULL
+);
+GO
+IF OBJECT_ID(N'dbo.SuDungDichVu', N'U') IS NULL
+CREATE TABLE dbo.SuDungDichVu (
+    MaSDDV NVARCHAR(24) NOT NULL PRIMARY KEY,
+    MaCTHD NVARCHAR(24) NOT NULL REFERENCES dbo.ChiTietHopDong(MaCTHD),
+    MaDV NVARCHAR(20) NOT NULL REFERENCES dbo.DichVu(MaDV),
+    Thang INT NOT NULL CHECK (Thang BETWEEN 1 AND 12),
+    Nam INT NOT NULL CHECK (Nam BETWEEN 2000 AND 2100),
+    SoLuong DECIMAL(18,3) NOT NULL CHECK (SoLuong > 0),
+    DonGia DECIMAL(18,2) NOT NULL CHECK (DonGia >= 0),
+    CONSTRAINT UQ_SuDungDichVu_Ky UNIQUE (MaCTHD, MaDV, Thang, Nam)
+);
+GO
+IF OBJECT_ID(N'dbo.HoaDonTienThue', N'U') IS NULL
+CREATE TABLE dbo.HoaDonTienThue (
+    MaHDT NVARCHAR(24) NOT NULL PRIMARY KEY,
+    MaHD NVARCHAR(24) NOT NULL REFERENCES dbo.HopDong(MaHD),
+    MaCTHD NVARCHAR(24) NOT NULL REFERENCES dbo.ChiTietHopDong(MaCTHD),
+    KyThanhToan NVARCHAR(70) NOT NULL,
+    KyTu DATE NOT NULL,
+    KyDen DATE NOT NULL,
+    NgayLap DATE NOT NULL,
+    HanThanhToan DATE NOT NULL,
+    TongTien DECIMAL(18,2) NOT NULL CHECK (TongTien > 0),
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'ChuaThanhToan' CHECK (TrangThai IN (N'ChuaThanhToan',N'ThanhToanMotPhan',N'DaThanhToan')),
+    CONSTRAINT UQ_HoaDonTienThue_Ky UNIQUE (MaCTHD, KyTu),
+    CONSTRAINT CK_HoaDonTienThue_Ky CHECK (KyDen >= KyTu)
+);
+GO
+IF OBJECT_ID(N'dbo.HoaDonDichVu', N'U') IS NULL
+CREATE TABLE dbo.HoaDonDichVu (
+    MaHDDV NVARCHAR(24) NOT NULL PRIMARY KEY,
+    MaHD NVARCHAR(24) NOT NULL REFERENCES dbo.HopDong(MaHD),
+    MaCTHD NVARCHAR(24) NOT NULL REFERENCES dbo.ChiTietHopDong(MaCTHD),
+    Thang INT NOT NULL CHECK (Thang BETWEEN 1 AND 12),
+    Nam INT NOT NULL CHECK (Nam BETWEEN 2000 AND 2100),
+    NgayLap DATE NOT NULL,
+    HanThanhToan DATE NOT NULL,
+    TongTien DECIMAL(18,2) NOT NULL CHECK (TongTien >= 0),
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'ChuaThanhToan' CHECK (TrangThai IN (N'ChuaThanhToan',N'ThanhToanMotPhan',N'DaThanhToan')),
+    CONSTRAINT UQ_HoaDonDichVu_Ky UNIQUE (MaCTHD, Thang, Nam)
+);
+GO
+IF OBJECT_ID(N'dbo.ChiTietHoaDonDV', N'U') IS NULL
+CREATE TABLE dbo.ChiTietHoaDonDV (
+    MaCTHDDV NVARCHAR(24) NOT NULL PRIMARY KEY,
+    MaHDDV NVARCHAR(24) NOT NULL REFERENCES dbo.HoaDonDichVu(MaHDDV),
+    MaSDDV NVARCHAR(24) NOT NULL UNIQUE REFERENCES dbo.SuDungDichVu(MaSDDV),
+    ThanhTien DECIMAL(18,2) NOT NULL CHECK (ThanhTien >= 0)
+);
+GO
+IF OBJECT_ID(N'dbo.ThanhToan', N'U') IS NULL
+CREATE TABLE dbo.ThanhToan (
+    MaTT NVARCHAR(24) NOT NULL PRIMARY KEY,
+    NgayThanhToan DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
+    SoTien DECIMAL(18,2) NOT NULL CHECK (SoTien > 0),
+    PhuongThuc NVARCHAR(60) NOT NULL,
+    LoaiThanhToan NVARCHAR(15) NOT NULL CHECK (LoaiThanhToan IN (N'THUE',N'DICHVU')),
+    MaHDT NVARCHAR(24) NULL REFERENCES dbo.HoaDonTienThue(MaHDT),
+    MaHDDV NVARCHAR(24) NULL REFERENCES dbo.HoaDonDichVu(MaHDDV),
+    CONSTRAINT CK_ThanhToan_Loai CHECK (
+        (LoaiThanhToan = N'THUE' AND MaHDT IS NOT NULL AND MaHDDV IS NULL) OR
+        (LoaiThanhToan = N'DICHVU' AND MaHDDV IS NOT NULL AND MaHDT IS NULL)
+    )
+);
+GO
+IF OBJECT_ID(N'dbo.PhieuGiaHan', N'U') IS NULL
+CREATE TABLE dbo.PhieuGiaHan (
+    MaPGH NVARCHAR(24) NOT NULL PRIMARY KEY,
+    MaCTHD NVARCHAR(24) NOT NULL REFERENCES dbo.ChiTietHopDong(MaCTHD),
+    MaNVQL NVARCHAR(20) NOT NULL REFERENCES dbo.NhanVienQuanLy(MaNVQL),
+    NgayLap DATE NOT NULL,
+    SoThangGiaHan INT NOT NULL CHECK (SoThangGiaHan > 0),
+    NgayKetThucCu DATE NOT NULL,
+    NgayKetThucMoi DATE NOT NULL,
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'CoHieuLuc' CHECK (TrangThai IN (N'CoHieuLuc')),
+    CONSTRAINT CK_PhieuGiaHan_Ngay CHECK (NgayKetThucMoi > NgayKetThucCu)
+);
+GO
+IF OBJECT_ID(N'dbo.NhanVien', N'U') IS NULL
+CREATE TABLE dbo.NhanVien (
+    MaNV NVARCHAR(20) NOT NULL PRIMARY KEY,
+    MaKH NVARCHAR(20) NOT NULL REFERENCES dbo.KhachHang(MaKH),
+    MaPhong NVARCHAR(20) NOT NULL REFERENCES dbo.Phong(MaPhong),
+    HoTen NVARCHAR(150) NOT NULL,
+    HinhAnh NVARCHAR(500) NULL,
+    ChucVu NVARCHAR(100) NULL,
+    DienThoai NVARCHAR(25) NULL,
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'DangLamViec' CHECK (TrangThai IN (N'DangLamViec',N'DaNghi'))
+);
+GO
+IF OBJECT_ID(N'dbo.TheGiuXe', N'U') IS NULL
+CREATE TABLE dbo.TheGiuXe (
+    MaThe NVARCHAR(20) NOT NULL PRIMARY KEY,
+    MaNV NVARCHAR(20) NOT NULL REFERENCES dbo.NhanVien(MaNV),
+    BienSoXe NVARCHAR(30) NOT NULL,
+    LoaiXe NVARCHAR(80) NULL,
+    NgayCap DATE NOT NULL,
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'HoatDong' CHECK (TrangThai IN (N'HoatDong',N'Khoa',N'Huy')),
+    CONSTRAINT UQ_TheGiuXe_Bien UNIQUE (BienSoXe)
+);
+GO
+IF OBJECT_ID(N'dbo.PhieuKiemTra', N'U') IS NULL
+CREATE TABLE dbo.PhieuKiemTra (
+    MaPKT NVARCHAR(24) NOT NULL PRIMARY KEY,
+    MaPhong NVARCHAR(20) NOT NULL REFERENCES dbo.Phong(MaPhong),
+    MaNVQL NVARCHAR(20) NOT NULL REFERENCES dbo.NhanVienQuanLy(MaNVQL),
+    NgayKiemTra DATE NOT NULL,
+    TinhTrangPhong NVARCHAR(300) NOT NULL,
+    NoiDung NVARCHAR(500) NULL,
+    KetQua NVARCHAR(300) NULL
+);
+GO
+IF OBJECT_ID(N'dbo.PhieuViPham', N'U') IS NULL
+CREATE TABLE dbo.PhieuViPham (
+    MaPVP NVARCHAR(24) NOT NULL PRIMARY KEY,
+    MaCTHD NVARCHAR(24) NOT NULL REFERENCES dbo.ChiTietHopDong(MaCTHD),
+    MaPKT NVARCHAR(24) NOT NULL REFERENCES dbo.PhieuKiemTra(MaPKT),
+    NgayLap DATE NOT NULL,
+    NoiDungViPham NVARCHAR(500) NOT NULL,
+    SoTienPhat DECIMAL(18,2) NOT NULL CHECK (SoTienPhat >= 0),
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'ChuaXuLy' CHECK (TrangThai IN (N'ChuaXuLy',N'DaXuLy'))
+);
+GO
+IF NOT EXISTS (SELECT 1 FROM dbo.NhanVienQuanLy WHERE MaNVQL = N'QL001')
+INSERT INTO dbo.NhanVienQuanLy (MaNVQL,HoTen,ChucVu,DienThoai,Email)
+VALUES (N'QL001',N'Quản lý tòa nhà',N'Quản lý',NULL,NULL);
+GO
+IF NOT EXISTS (SELECT 1 FROM dbo.Tang WHERE MaTang=N'T01')
+INSERT INTO dbo.Tang (MaTang,SoTang,MoTa) VALUES (N'T01',1,N'Tầng 1');
+IF NOT EXISTS (SELECT 1 FROM dbo.Tang WHERE MaTang=N'T02')
+INSERT INTO dbo.Tang (MaTang,SoTang,MoTa) VALUES (N'T02',2,N'Tầng 2');
+GO
+IF NOT EXISTS (SELECT 1 FROM dbo.Phong WHERE MaPhong=N'P101')
+INSERT INTO dbo.Phong (MaPhong,MaTang,DienTich,HuongPhong,GiaThue,TrangThai,TinhTrang)
+VALUES (N'P101',N'T01',50,N'Đông',8000000,N'SanSang',N'Tốt');
+IF NOT EXISTS (SELECT 1 FROM dbo.Phong WHERE MaPhong=N'P102')
+INSERT INTO dbo.Phong (MaPhong,MaTang,DienTich,HuongPhong,GiaThue,TrangThai,TinhTrang)
+VALUES (N'P102',N'T01',75,N'Tây',11500000,N'SanSang',N'Tốt');
+IF NOT EXISTS (SELECT 1 FROM dbo.Phong WHERE MaPhong=N'P201')
+INSERT INTO dbo.Phong (MaPhong,MaTang,DienTich,HuongPhong,GiaThue,TrangThai,TinhTrang)
+VALUES (N'P201',N'T02',60,N'Nam',10000000,N'SanSang',N'Tốt');
+GO
+IF NOT EXISTS (SELECT 1 FROM dbo.KhachHang WHERE MaKH=N'KH001')
+INSERT INTO dbo.KhachHang (MaKH,TenKH,DiaChi,DienThoai,Email,MaSoThue,NguoiDaiDien)
+VALUES (N'KH001',N'Công ty Minh Họa',N'TP.HCM',N'0900000000',N'contact@example.com',NULL,N'Nguyễn Văn A');
+GO
+IF NOT EXISTS (SELECT 1 FROM dbo.DichVu WHERE MaDV=N'DV01')
+INSERT INTO dbo.DichVu (MaDV,TenDV,DonGia,DonViTinh,MoTa) VALUES (N'DV01',N'Điện',N'3500',N'kWh',NULL);
+IF NOT EXISTS (SELECT 1 FROM dbo.DichVu WHERE MaDV=N'DV02')
+INSERT INTO dbo.DichVu (MaDV,TenDV,DonGia,DonViTinh,MoTa) VALUES (N'DV02',N'Nước',N'18000',N'm3',NULL);
+IF NOT EXISTS (SELECT 1 FROM dbo.DichVu WHERE MaDV=N'DV03')
+INSERT INTO dbo.DichVu (MaDV,TenDV,DonGia,DonViTinh,MoTa) VALUES (N'DV03',N'Internet',N'400000',N'tháng',NULL);
+GO
